@@ -10,17 +10,23 @@
 #import "cocos2d.h"
 #import "NavigationButton.h"
 
+typedef struct {CGPoint start; CGPoint end;} QixLine;
+
 // HelloWorldLayer
-@interface HelloWorldLayer : CCLayer
+@interface HelloWorldLayer : CCLayer <NavigationButtonDelegate>
 {
 }
 
 @property (atomic) NSUInteger currentPosY;
 @property (atomic) NSUInteger currentPosX;
+@property (atomic) CGPoint startPoint;
+@property (atomic) CGPoint endPoint;
 @property (atomic, strong) NavigationButton * leftButton;
 @property (atomic, strong) NavigationButton * rightButton;
 @property (atomic, strong) NavigationButton * downButton;
 @property (atomic, strong) NavigationButton * upButton;
+
+@property (atomic, strong) NSMutableArray * lines;
 
 // returns a CCScene that contains the HelloWorldLayer as the only child
 +(CCScene *) scene;

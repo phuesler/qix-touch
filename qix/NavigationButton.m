@@ -10,11 +10,12 @@
 
 @implementation NavigationButton
 
--(id) initWithDirection:(NavigationDirection) direction position:(CGPoint) position
+-(id) initWithDirection:(NavigationDirection) direction position:(CGPoint) position delegate:(id) delegate
 {
 	// always call "super" init
 	// Apple recommends to re-assign "self" with the "super's" return value
 	if( (self=[super initWithColor:ccc4(230, 42, 42, 255)]) ) {
+        self.delegate = delegate;
         self.direction = direction;
         self.position = position;
         self.contentSize = CGSizeMake(50, 50);
@@ -48,6 +49,7 @@
     if(CGRectContainsPoint([self boundingBox], location))
     {
         self.pressed = YES;
+        [self.delegate navigationButtonPressed:self.direction];
         return YES;
     }
     else
@@ -64,6 +66,7 @@
     if(CGRectContainsPoint([self boundingBox], location))
     {
         self.pressed = NO;
+        [self.delegate navigationButtonReleased:self.direction];
     }    
 }
 

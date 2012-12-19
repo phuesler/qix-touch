@@ -16,10 +16,19 @@ typedef enum {
     kDown
 } NavigationDirection;
 
+@protocol NavigationButtonDelegate <NSObject>
+
+@required
+-(void)navigationButtonPressed:(NavigationDirection) direction;
+-(void)navigationButtonReleased:(NavigationDirection) direction;
+
+@end
+
 @interface NavigationButton : CCLayerColor
 
 @property (atomic) NavigationDirection direction;
-@property (atomic) BOOL pressed;
+@property (atomic) NavigationDirection pressed;
+@property(nonatomic, unsafe_unretained) id <NavigationButtonDelegate> delegate;
 
--(id) initWithDirection:(NavigationDirection) direction position:(CGPoint) position;
+-(id) initWithDirection:(NavigationDirection) direction position:(CGPoint) position delegate:(id) delegate;
 @end

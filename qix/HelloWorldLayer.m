@@ -43,12 +43,13 @@
 	// Apple recommends to re-assign "self" with the "super's" return value
 	if( (self=[super init]) ) {
 		
+        self.lines = [[NSMutableArray alloc] initWithCapacity:10];
 		self.currentPosX = 200;
         self.currentPosY = 200;
-        self.leftButton =  [[NavigationButton alloc] initWithDirection:kLeft position:CGPointMake(50, 60)];
-        self.rightButton = [[NavigationButton alloc] initWithDirection:kRight position:CGPointMake(200, 60)];
-        self.upButton = [[NavigationButton alloc] initWithDirection:kUp position:CGPointMake(125, 125)];
-        self.downButton = [[NavigationButton alloc] initWithDirection:kDown position:CGPointMake(125, 5)];
+        self.leftButton =  [[NavigationButton alloc] initWithDirection:kLeft position:CGPointMake(50, 60) delegate:self];
+        self.rightButton = [[NavigationButton alloc] initWithDirection:kRight position:CGPointMake(200, 60) delegate:self];
+        self.upButton = [[NavigationButton alloc] initWithDirection:kUp position:CGPointMake(125, 125) delegate:self];
+        self.downButton = [[NavigationButton alloc] initWithDirection:kDown position:CGPointMake(125, 5) delegate:self];
         
         [self addChild: self.leftButton];
         [self addChild: self.rightButton];
@@ -57,6 +58,21 @@
 
 	}
 	return self;
+}
+
+-(void)navigationButtonPressed:(NavigationDirection) direction
+{
+    //finish drawing here
+    self.startPoint = CGPointMake(self.currentPosX, self.currentPosY);
+}
+
+-(void)navigationButtonReleased:(NavigationDirection) direction
+{
+    //finish drawing here
+    self.endPoint = CGPointMake(self.currentPosX, self.currentPosY);
+    QixLine line = {.start = self.startPoint, .end = self.endPoint};
+    NSValue *value = [NSValue value:&line withObjCType:@encode(QixLine)];
+    [self.lines addObject: value];
 }
 
 // You have to over-ride this method
@@ -78,7 +94,16 @@
     {
         self.currentPosX++;
     }
-    ccDrawLine( ccp(200, 200), ccp(self.currentPosX, self.currentPosY) );
+    
+    QixLine currentLine;
+    for(int i = 0; i < [self.lines count];i++)
+    {
+        NSValue *currentValue = [self.lines objectAtIndex:i];
+        [currentValue getValue:&currentLine];
+        ccDrawLine(currentLine.start, currentLine.end);
+    }
+
+    
 }
 
 // on "dealloc" you need to release all your retained objects
