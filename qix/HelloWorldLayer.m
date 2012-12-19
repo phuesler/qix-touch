@@ -13,6 +13,7 @@
 // Needed to obtain the Navigation Controller
 #import "AppDelegate.h"
 #import "cocos2d.h"
+#import "NavigationButton.h"
 
 #pragma mark - HelloWorldLayer
 
@@ -42,28 +43,42 @@
 	// Apple recommends to re-assign "self" with the "super's" return value
 	if( (self=[super init]) ) {
 		
-		// create and initialize a Label
-		CCLabelTTF *label = [CCLabelTTF labelWithString:@"Hello World" fontName:@"Marker Felt" fontSize:64];
-
-		// ask director for the window size
-		CGSize size = [[CCDirector sharedDirector] winSize];
-	
-		// position the label on the center of the screen
-		label.position =  ccp( size.width /2 , size.height/2 );
-		
-		// add the label as a child to this Layer
-		[self addChild: label];
+		self.currentPosX = 200;
+        self.currentPosY = 200;
+        self.leftButton =  [[NavigationButton alloc] initWithDirection:kLeft position:CGPointMake(50, 60)];
+        self.rightButton = [[NavigationButton alloc] initWithDirection:kRight position:CGPointMake(200, 60)];
+        self.upButton = [[NavigationButton alloc] initWithDirection:kUp position:CGPointMake(125, 125)];
+        self.downButton = [[NavigationButton alloc] initWithDirection:kDown position:CGPointMake(125, 5)];
         
-        
+        [self addChild: self.leftButton];
+        [self addChild: self.rightButton];
+        [self addChild: self.upButton];
+        [self addChild: self.downButton];
 
 	}
 	return self;
 }
 
 // You have to over-ride this method
--(void)draw{
-//    glEnable(GL_LINE_SMOOTH);
-    ccDrawLine( ccp(0, 0), ccp(600, 600) );
+-(void)draw
+{
+    if(self.upButton.pressed)
+    {
+      self.currentPosY++;
+    }
+    if(self.downButton.pressed)
+    {
+        self.currentPosY--;
+    }
+    if(self.leftButton.pressed)
+    {
+        self.currentPosX--;
+    }
+    if(self.rightButton.pressed)
+    {
+        self.currentPosX++;
+    }
+    ccDrawLine( ccp(200, 200), ccp(self.currentPosX, self.currentPosY) );
 }
 
 // on "dealloc" you need to release all your retained objects
@@ -72,19 +87,5 @@
 	// in case you have something to dealloc, do it in this method
 	// in this particular example nothing needs to be released.
 	// cocos2d will automatically release all the children (Label)
-}
-
-#pragma mark GameKit delegate
-
--(void) achievementViewControllerDidFinish:(GKAchievementViewController *)viewController
-{
-	AppController *app = (AppController*) [[UIApplication sharedApplication] delegate];
-	[[app navController] dismissModalViewControllerAnimated:YES];
-}
-
--(void) leaderboardViewControllerDidFinish:(GKLeaderboardViewController *)viewController
-{
-	AppController *app = (AppController*) [[UIApplication sharedApplication] delegate];
-	[[app navController] dismissModalViewControllerAnimated:YES];
 }
 @end
