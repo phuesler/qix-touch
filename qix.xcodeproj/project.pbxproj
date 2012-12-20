@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		03DE659B1682170F008A95AD /* NavigationButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DE659A1682170F008A95AD /* NavigationButton.m */; };
 		03DE65DA16835284008A95AD /* BoardLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DE65D916835284008A95AD /* BoardLayer.m */; };
 		03FF38611680DDC6000428AD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03FF38601680DDC6000428AD /* QuartzCore.framework */; };
 		03FF38631680DDC6000428AD /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03FF38621680DDC6000428AD /* OpenGLES.framework */; };
@@ -138,8 +137,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		03DE65991682170F008A95AD /* NavigationButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationButton.h; sourceTree = "<group>"; };
-		03DE659A1682170F008A95AD /* NavigationButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationButton.m; sourceTree = "<group>"; };
 		03DE65D816835284008A95AD /* BoardLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardLayer.h; sourceTree = "<group>"; };
 		03DE65D916835284008A95AD /* BoardLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardLayer.m; sourceTree = "<group>"; };
 		03FF385C1680DDC6000428AD /* qix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = qix.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -466,8 +463,6 @@
 				03FF39EB1680DDC8000428AD /* AppDelegate.m */,
 				03FF39ED1680DDC8000428AD /* HelloWorldLayer.h */,
 				03FF39EE1680DDC8000428AD /* HelloWorldLayer.m */,
-				03DE65991682170F008A95AD /* NavigationButton.h */,
-				03DE659A1682170F008A95AD /* NavigationButton.m */,
 				03FF39F01680DDC8000428AD /* IntroLayer.h */,
 				03FF39F11680DDC8000428AD /* IntroLayer.m */,
 				03FF38731680DDC6000428AD /* Resources */,
@@ -1019,7 +1014,6 @@
 				03FF39EC1680DDC8000428AD /* AppDelegate.m in Sources */,
 				03FF39EF1680DDC8000428AD /* HelloWorldLayer.m in Sources */,
 				03FF39F21680DDC8000428AD /* IntroLayer.m in Sources */,
-				03DE659B1682170F008A95AD /* NavigationButton.m in Sources */,
 				03DE65DA16835284008A95AD /* BoardLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

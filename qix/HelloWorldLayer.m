@@ -13,7 +13,6 @@
 // Needed to obtain the Navigation Controller
 #import "AppDelegate.h"
 #import "cocos2d.h"
-#import "NavigationButton.h"
 #import "BoardLayer.h"
 
 #pragma mark - HelloWorldLayer
