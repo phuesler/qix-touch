@@ -62,8 +62,8 @@
 
 -(void)navigationButtonPressed:(NavigationDirection) direction
 {
-    //finish drawing here
     self.startPoint = CGPointMake(self.currentPosX, self.currentPosY);
+    self.endPoint = CGPointMake(self.currentPosX, self.currentPosY);
 }
 
 -(void)navigationButtonReleased:(NavigationDirection) direction
@@ -78,31 +78,34 @@
 // You have to over-ride this method
 -(void)draw
 {
-    if(self.upButton.pressed)
+    if(self.upButton.pressed || self.downButton.pressed || self.leftButton.pressed || self.rightButton.pressed)
     {
-      self.currentPosY++;
-    }
-    if(self.downButton.pressed)
-    {
-        self.currentPosY--;
-    }
-    if(self.leftButton.pressed)
-    {
-        self.currentPosX--;
-    }
-    if(self.rightButton.pressed)
-    {
-        self.currentPosX++;
+        if(self.upButton.pressed)
+        {
+            self.currentPosY++;
+        }
+        if(self.downButton.pressed)
+        {
+            self.currentPosY--;
+        }
+        if(self.leftButton.pressed)
+        {
+            self.currentPosX--;
+        }
+        if(self.rightButton.pressed)
+        {
+            self.currentPosX++;
+        }
+        ccDrawLine(self.startPoint, CGPointMake(self.currentPosX, self.currentPosY));
     }
     
-    QixLine currentLine;
     for(int i = 0; i < [self.lines count];i++)
     {
+        QixLine line;
         NSValue *currentValue = [self.lines objectAtIndex:i];
-        [currentValue getValue:&currentLine];
-        ccDrawLine(currentLine.start, currentLine.end);
+        [currentValue getValue:&line];
+        ccDrawLine(line.start, line.end);
     }
-
     
 }
 
