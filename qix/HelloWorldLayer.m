@@ -17,6 +17,11 @@
 
 #pragma mark - HelloWorldLayer
 
+#define BOARD_X 300
+#define BOARD_Y 10
+#define BOARD_WIDTH 700
+#define BOARD_HEIGHT 700
+
 // HelloWorldLayer implementation
 @implementation HelloWorldLayer
 
@@ -44,13 +49,13 @@
 	if( (self=[super init]) ) {
 		
         self.lines = [[NSMutableArray alloc] initWithCapacity:10];
-		self.currentPosX = 200;
-        self.currentPosY = 200;
+		self.currentPosX = BOARD_X;
+        self.currentPosY = BOARD_Y;
         self.leftButton =  [[NavigationButton alloc] initWithDirection:kLeft position:CGPointMake(50, 60) delegate:self];
         self.rightButton = [[NavigationButton alloc] initWithDirection:kRight position:CGPointMake(200, 60) delegate:self];
         self.upButton = [[NavigationButton alloc] initWithDirection:kUp position:CGPointMake(125, 125) delegate:self];
         self.downButton = [[NavigationButton alloc] initWithDirection:kDown position:CGPointMake(125, 5) delegate:self];
-        
+                
         [self addChild: self.leftButton];
         [self addChild: self.rightButton];
         [self addChild: self.upButton];
@@ -96,6 +101,7 @@
         {
             self.currentPosX++;
         }
+        ccDrawColor4B(255, 255, 255, 255);
         ccDrawLine(self.startPoint, CGPointMake(self.currentPosX, self.currentPosY));
     }
     
@@ -104,8 +110,11 @@
         QixLine line;
         NSValue *currentValue = [self.lines objectAtIndex:i];
         [currentValue getValue:&line];
+        ccDrawColor4B(255, 255, 255, 255);
         ccDrawLine(line.start, line.end);
     }
+    ccDrawColor4B(230, 42, 42, 255);
+    ccDrawRect(CGPointMake(BOARD_X, BOARD_Y), CGPointMake(BOARD_X + BOARD_WIDTH, BOARD_Y + BOARD_HEIGHT));
     
 }
 

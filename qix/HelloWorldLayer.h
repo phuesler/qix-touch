@@ -19,7 +19,6 @@ typedef struct {CGPoint start; CGPoint end;} QixLine;
 
 @property (atomic) NSUInteger currentPosY;
 @property (atomic) NSUInteger currentPosX;
-@property (atomic) QixLine currentLine;
 @property (atomic) CGPoint startPoint;
 @property (atomic) CGPoint endPoint;
 @property (atomic, strong) NavigationButton * leftButton;
