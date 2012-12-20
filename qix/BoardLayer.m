@@ -7,7 +7,7 @@
 //
 
 #import "BoardLayer.h"
-#define THRESHOLD 10.0;
+#define THRESHOLD 2.0;
 
 @implementation BoardLayer
 
