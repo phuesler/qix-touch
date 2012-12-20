@@ -7,7 +7,7 @@
 //
 
 #import "BoardLayer.h"
-#define THRESHOLD 40.0;
+#define THRESHOLD 10.0;
 
 @implementation BoardLayer
 
@@ -109,18 +109,17 @@
         else
         {
             NSLog(@"out of threshold bounds");
-            newDirection = self.currentDirection;
-            self.end = self.start;
-        }
-        
-        
-        if (self.currentDirection != newDirection)
-        {
+            CGPoint correctionPoint = [self newEndPoint];
+            self.end = correctionPoint;
             QixLine line = {.start = self.start, .end = self.end};
             NSValue *value = [NSValue value:&line withObjCType:@encode(QixLine)];
             [self.lines addObject: value];
+            self.start = correctionPoint;
+            
+            newDirection = self.currentDirection;
         }
         
+        self.currentDirection = newDirection;
         self.end = [self absoluteToRelativeLocation:location];
     }
     else
@@ -137,6 +136,20 @@
     {
         CCLOG(@"touch ended");
         self.pressed = false;
+    }
+}
+
+-(CGPoint)newEndPoint
+{
+    switch (self.currentDirection) {
+        case kUp:
+        case kDown:
+            return CGPointMake(self.start.x, self.end.y);
+        case kLeft:
+        case kRight:
+            return CGPointMake(self.end.x, self.start.y);
+        default:
+            return self.end;
     }
 }
 
