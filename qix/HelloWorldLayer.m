@@ -49,19 +49,6 @@
 	// Apple recommends to re-assign "self" with the "super's" return value
 	if( (self=[super init]) ) {
 		
-        self.anchorPoint = ccp(0,0);
-        self.lines = [[NSMutableArray alloc] initWithCapacity:10];
-		self.currentPosX = BOARD_X;
-        self.currentPosY = BOARD_Y;
-//        self.leftButton =  [[NavigationButton alloc] initWithDirection:kLeft position:CGPointMake(50, 60) delegate:self];
-//        self.rightButton = [[NavigationButton alloc] initWithDirection:kRight position:CGPointMake(200, 60) delegate:self];
-//        self.upButton = [[NavigationButton alloc] initWithDirection:kUp position:CGPointMake(125, 125) delegate:self];
-//        self.downButton = [[NavigationButton alloc] initWithDirection:kDown position:CGPointMake(125, 5) delegate:self];
-//                
-//        [self addChild: self.leftButton];
-//        [self addChild: self.rightButton];
-//        [self addChild: self.upButton];
-//        [self addChild: self.downButton];
         BoardLayer * boardLayer = [[BoardLayer alloc] initWithColor:ccc4(230, 42, 42, 255)];
         boardLayer.anchorPoint = ccp(0,0);
         boardLayer.position = ccp(10,10);
@@ -74,20 +61,20 @@
 	return self;
 }
 
--(void)navigationButtonPressed:(NavigationDirection) direction
-{
-    self.startPoint = CGPointMake(self.currentPosX, self.currentPosY);
-    self.endPoint = CGPointMake(self.currentPosX, self.currentPosY);
-}
-
--(void)navigationButtonReleased:(NavigationDirection) direction
-{
-    //finish drawing here
-    self.endPoint = CGPointMake(self.currentPosX, self.currentPosY);
-    QixLine line = {.start = self.startPoint, .end = self.endPoint};
-    NSValue *value = [NSValue value:&line withObjCType:@encode(QixLine)];
-    [self.lines addObject: value];
-}
+//-(void)navigationButtonPressed:(NavigationDirection) direction
+//{
+//    self.startPoint = CGPointMake(self.currentPosX, self.currentPosY);
+//    self.endPoint = CGPointMake(self.currentPosX, self.currentPosY);
+//}
+//
+//-(void)navigationButtonReleased:(NavigationDirection) direction
+//{
+//    //finish drawing here
+//    self.endPoint = CGPointMake(self.currentPosX, self.currentPosY);
+//    QixLine line = {.start = self.startPoint, .end = self.endPoint};
+//    NSValue *value = [NSValue value:&line withObjCType:@encode(QixLine)];
+//    [self.lines addObject: value];
+//}
 
 // You have to over-ride this method
 //-(void)draw
