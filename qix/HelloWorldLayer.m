@@ -48,7 +48,7 @@
 	// Apple recommends to re-assign "self" with the "super's" return value
 	if( (self=[super init]) ) {
 		
-        BoardLayer * boardLayer = [[BoardLayer alloc] initWithColor:ccc4(230, 42, 42, 255)];
+        BoardLayer * boardLayer = [[BoardLayer alloc] init];
         boardLayer.anchorPoint = ccp(0,0);
         boardLayer.position = ccp(10,10);
         boardLayer.contentSize = CGSizeMake(1000, 750);

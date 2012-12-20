@@ -7,10 +7,19 @@
 //
 
 #import "BoardLayer.h"
-#define THRESHOLD 15.0;
+#define THRESHOLD 40.0;
 
 @implementation BoardLayer
 
+-(id)init
+{
+    if(self = [super initWithColor:ccc4(230, 42, 42, 255)])
+    {
+        self.lines = [[NSMutableArray alloc] initWithCapacity:20];
+        self.currentDirection = kUp;
+    }
+    return self;
+}
 
 - (void)registerWithTouchDispatcher
 {
@@ -33,6 +42,14 @@
     [super draw];
     if (self.pressed) {
         ccDrawLine(self.start, self.end);
+    }
+    for(int i = 0; i < [self.lines count];i++)
+    {
+        QixLine line;
+        NSValue *currentValue = [self.lines objectAtIndex:i];
+        [currentValue getValue:&line];
+        ccDrawColor4B(255, 255, 255, 255);
+        ccDrawLine(line.start, line.end);
     }
     ccDrawRect(ccp(0,0), ccp(self.contentSize.width, self.contentSize.height));
 }
@@ -65,34 +82,46 @@
     location = [[CCDirector sharedDirector] convertToGL:location];
     if(CGRectContainsPoint([self boundingBox], location))
     {
-//        CCLOG(@"touch moved : %f", ccpAngle(self.start, self.end));
         float threshold = THRESHOLD;
         float dY = abs(self.end.y - self.start.y);
         float dX = abs(self.end.x - self.start.x);
+        QixNavigationDirection newDirection;
         if(dX <= threshold && self.start.y < self.end.y)
         {
+            newDirection = kUp;
             CCLOG(@"going up");
         }
         else if(dX <= threshold && self.start.y > self.end.y)
         {
+            newDirection = kDown;
             CCLOG(@"going down");
         }
         else if(dY <= threshold && self.start.x < self.end.x)
         {
+            newDirection = kRight;
             CCLOG(@"moving right");
         }
         else if(dY <= threshold && self.start.x > self.end.x)
         {
+            newDirection = kLeft;
             CCLOG(@"moving left");
         }
         else
         {
-            CCLOG(@"Need to adjust the delta");
+            NSLog(@"out of threshold bounds");
+            newDirection = self.currentDirection;
+            self.end = self.start;
         }
-
+        
+        
+        if (self.currentDirection != newDirection)
+        {
+            QixLine line = {.start = self.start, .end = self.end};
+            NSValue *value = [NSValue value:&line withObjCType:@encode(QixLine)];
+            [self.lines addObject: value];
+        }
+        
         self.end = [self absoluteToRelativeLocation:location];
-
-
     }
     else
     {
