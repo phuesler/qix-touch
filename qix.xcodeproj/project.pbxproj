@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		03DE659B1682170F008A95AD /* NavigationButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DE659A1682170F008A95AD /* NavigationButton.m */; };
+		03DE65DA16835284008A95AD /* BoardLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DE65D916835284008A95AD /* BoardLayer.m */; };
 		03FF38611680DDC6000428AD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03FF38601680DDC6000428AD /* QuartzCore.framework */; };
 		03FF38631680DDC6000428AD /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03FF38621680DDC6000428AD /* OpenGLES.framework */; };
 		03FF38651680DDC6000428AD /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03FF38641680DDC6000428AD /* OpenAL.framework */; };
@@ -139,6 +140,8 @@
 /* Begin PBXFileReference section */
 		03DE65991682170F008A95AD /* NavigationButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationButton.h; sourceTree = "<group>"; };
 		03DE659A1682170F008A95AD /* NavigationButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationButton.m; sourceTree = "<group>"; };
+		03DE65D816835284008A95AD /* BoardLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardLayer.h; sourceTree = "<group>"; };
+		03DE65D916835284008A95AD /* BoardLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardLayer.m; sourceTree = "<group>"; };
 		03FF385C1680DDC6000428AD /* qix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = qix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03FF38601680DDC6000428AD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		03FF38621680DDC6000428AD /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -470,6 +473,8 @@
 				03FF38731680DDC6000428AD /* Resources */,
 				03FF388D1680DDC6000428AD /* libs */,
 				03FF39E61680DDC8000428AD /* Supporting Files */,
+				03DE65D816835284008A95AD /* BoardLayer.h */,
+				03DE65D916835284008A95AD /* BoardLayer.m */,
 			);
 			path = qix;
 			sourceTree = "<group>";
@@ -1015,6 +1020,7 @@
 				03FF39EF1680DDC8000428AD /* HelloWorldLayer.m in Sources */,
 				03FF39F21680DDC8000428AD /* IntroLayer.m in Sources */,
 				03DE659B1682170F008A95AD /* NavigationButton.m in Sources */,
+				03DE65DA16835284008A95AD /* BoardLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

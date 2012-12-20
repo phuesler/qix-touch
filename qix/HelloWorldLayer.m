@@ -14,6 +14,7 @@
 #import "AppDelegate.h"
 #import "cocos2d.h"
 #import "NavigationButton.h"
+#import "BoardLayer.h"
 
 #pragma mark - HelloWorldLayer
 
@@ -48,18 +49,26 @@
 	// Apple recommends to re-assign "self" with the "super's" return value
 	if( (self=[super init]) ) {
 		
+        self.anchorPoint = ccp(0,0);
         self.lines = [[NSMutableArray alloc] initWithCapacity:10];
 		self.currentPosX = BOARD_X;
         self.currentPosY = BOARD_Y;
-        self.leftButton =  [[NavigationButton alloc] initWithDirection:kLeft position:CGPointMake(50, 60) delegate:self];
-        self.rightButton = [[NavigationButton alloc] initWithDirection:kRight position:CGPointMake(200, 60) delegate:self];
-        self.upButton = [[NavigationButton alloc] initWithDirection:kUp position:CGPointMake(125, 125) delegate:self];
-        self.downButton = [[NavigationButton alloc] initWithDirection:kDown position:CGPointMake(125, 5) delegate:self];
-                
-        [self addChild: self.leftButton];
-        [self addChild: self.rightButton];
-        [self addChild: self.upButton];
-        [self addChild: self.downButton];
+//        self.leftButton =  [[NavigationButton alloc] initWithDirection:kLeft position:CGPointMake(50, 60) delegate:self];
+//        self.rightButton = [[NavigationButton alloc] initWithDirection:kRight position:CGPointMake(200, 60) delegate:self];
+//        self.upButton = [[NavigationButton alloc] initWithDirection:kUp position:CGPointMake(125, 125) delegate:self];
+//        self.downButton = [[NavigationButton alloc] initWithDirection:kDown position:CGPointMake(125, 5) delegate:self];
+//                
+//        [self addChild: self.leftButton];
+//        [self addChild: self.rightButton];
+//        [self addChild: self.upButton];
+//        [self addChild: self.downButton];
+        BoardLayer * boardLayer = [[BoardLayer alloc] initWithColor:ccc4(230, 42, 42, 255)];
+        boardLayer.anchorPoint = ccp(0,0);
+        boardLayer.position = ccp(10,10);
+        boardLayer.contentSize = CGSizeMake(1000, 750);
+        boardLayer.isTouchEnabled = YES;
+        
+        [self addChild: boardLayer];
 
 	}
 	return self;
@@ -81,42 +90,42 @@
 }
 
 // You have to over-ride this method
--(void)draw
-{
-    if(self.upButton.pressed || self.downButton.pressed || self.leftButton.pressed || self.rightButton.pressed)
-    {
-        if(self.upButton.pressed)
-        {
-            self.currentPosY++;
-        }
-        if(self.downButton.pressed)
-        {
-            self.currentPosY--;
-        }
-        if(self.leftButton.pressed)
-        {
-            self.currentPosX--;
-        }
-        if(self.rightButton.pressed)
-        {
-            self.currentPosX++;
-        }
-        ccDrawColor4B(255, 255, 255, 255);
-        ccDrawLine(self.startPoint, CGPointMake(self.currentPosX, self.currentPosY));
-    }
-    
-    for(int i = 0; i < [self.lines count];i++)
-    {
-        QixLine line;
-        NSValue *currentValue = [self.lines objectAtIndex:i];
-        [currentValue getValue:&line];
-        ccDrawColor4B(255, 255, 255, 255);
-        ccDrawLine(line.start, line.end);
-    }
-    ccDrawColor4B(230, 42, 42, 255);
-    ccDrawRect(CGPointMake(BOARD_X, BOARD_Y), CGPointMake(BOARD_X + BOARD_WIDTH, BOARD_Y + BOARD_HEIGHT));
-    
-}
+//-(void)draw
+//{
+//    if(self.upButton.pressed || self.downButton.pressed || self.leftButton.pressed || self.rightButton.pressed)
+//    {
+//        if(self.upButton.pressed)
+//        {
+//            self.currentPosY++;
+//        }
+//        if(self.downButton.pressed)
+//        {
+//            self.currentPosY--;
+//        }
+//        if(self.leftButton.pressed)
+//        {
+//            self.currentPosX--;
+//        }
+//        if(self.rightButton.pressed)
+//        {
+//            self.currentPosX++;
+//        }
+//        ccDrawColor4B(255, 255, 255, 255);
+//        ccDrawLine(self.startPoint, CGPointMake(self.currentPosX, self.currentPosY));
+//    }
+//    
+//    for(int i = 0; i < [self.lines count];i++)
+//    {
+//        QixLine line;
+//        NSValue *currentValue = [self.lines objectAtIndex:i];
+//        [currentValue getValue:&line];
+//        ccDrawColor4B(255, 255, 255, 255);
+//        ccDrawLine(line.start, line.end);
+//    }
+//    ccDrawColor4B(230, 42, 42, 255);
+//    ccDrawRect(CGPointMake(BOARD_X, BOARD_Y), CGPointMake(BOARD_X + BOARD_WIDTH, BOARD_Y + BOARD_HEIGHT));
+//    
+//}
 
 // on "dealloc" you need to release all your retained objects
 - (void) dealloc

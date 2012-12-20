@@ -42,6 +42,7 @@
     [self unregisterWithTouchDispatcher];
 }
 
+
 -(BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
 	CGPoint location = [touch locationInView:[touch view]];
 	location = [[CCDirector sharedDirector] convertToGL:location];
@@ -57,6 +58,11 @@
         return NO;
     }
     
+}
+
+-(void)ccTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event
+{
+    CCLOG(@"touch moved");
 }
 
 -(void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
