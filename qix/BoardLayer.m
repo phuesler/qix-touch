@@ -7,6 +7,7 @@
 //
 
 #import "BoardLayer.h"
+#define THRESHOLD 15.0;
 
 @implementation BoardLayer
 
@@ -45,7 +46,7 @@
     if(CGRectContainsPoint([self boundingBox], location))
     {
         CCLOG(@"touch began");
-        CGPoint correctedLocation = ccp(location.x - self.position.x, location.y - self.position.y);
+        CGPoint correctedLocation = [self absoluteToRelativeLocation:location];
         self.start = correctedLocation;
         self.end = correctedLocation;
         self.pressed = YES;
@@ -64,9 +65,33 @@
     location = [[CCDirector sharedDirector] convertToGL:location];
     if(CGRectContainsPoint([self boundingBox], location))
     {
-        CGPoint correctedLocation = ccp(location.x - self.position.x, location.y - self.position.y);
-        self.end = correctedLocation;
-        CCLOG(@"touch moved");
+//        CCLOG(@"touch moved : %f", ccpAngle(self.start, self.end));
+        float threshold = THRESHOLD;
+        float dY = abs(self.end.y - self.start.y);
+        float dX = abs(self.end.x - self.start.x);
+        if(dX <= threshold && self.start.y < self.end.y)
+        {
+            CCLOG(@"going up");
+        }
+        else if(dX <= threshold && self.start.y > self.end.y)
+        {
+            CCLOG(@"going down");
+        }
+        else if(dY <= threshold && self.start.x < self.end.x)
+        {
+            CCLOG(@"moving right");
+        }
+        else if(dY <= threshold && self.start.x > self.end.x)
+        {
+            CCLOG(@"moving left");
+        }
+        else
+        {
+            CCLOG(@"Need to adjust the delta");
+        }
+
+        self.end = [self absoluteToRelativeLocation:location];
+
 
     }
     else
@@ -84,6 +109,12 @@
         CCLOG(@"touch ended");
         self.pressed = false;
     }
+}
+
+
+-(CGPoint)absoluteToRelativeLocation:(CGPoint) location
+{
+    return ccp(location.x - self.position.x, location.y - self.position.y);
 }
 
 @end
