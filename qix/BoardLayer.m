@@ -8,6 +8,7 @@
 
 #import "BoardLayer.h"
 #define THRESHOLD 2.0;
+#define BOARD_PADDING 20.0
 
 @implementation BoardLayer
 
@@ -51,7 +52,7 @@
         ccDrawColor4B(255, 255, 255, 255);
         ccDrawLine(line.start, line.end);
     }
-    ccDrawRect(ccp(0,0), ccp(self.contentSize.width, self.contentSize.height));
+    ccDrawRect(ccp(BOARD_PADDING,BOARD_PADDING), ccp(self.contentSize.width - BOARD_PADDING, self.contentSize.height - BOARD_PADDING));
 }
 
 
