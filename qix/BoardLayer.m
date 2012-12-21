@@ -7,7 +7,7 @@
 //
 
 #import "BoardLayer.h"
-#define THRESHOLD 2.0;
+#define THRESHOLD 10.0;
 #define BOARD_PADDING 20.0
 
 @implementation BoardLayer
@@ -18,6 +18,7 @@
     {
         self.lines = [[NSMutableArray alloc] initWithCapacity:20];
         self.currentDirection = kUp;
+        self.border = CGRectMake(BOARD_PADDING, BOARD_PADDING, self.contentSize.width - BOARD_PADDING, self.contentSize.height - BOARD_PADDING);
     }
     return self;
 }
@@ -59,12 +60,11 @@
 -(BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
 	CGPoint location = [touch locationInView:[touch view]];
 	location = [[CCDirector sharedDirector] convertToGL:location];
-    
+     CGPoint correctedLocation = [self absoluteToRelativeLocation:location];
        
-    if(CGRectContainsPoint([self boundingBox], location))
+    if(CGRectContainsPoint([self boundingBox], location) && [self isValidStartPoint:correctedLocation])
     {
         CCLOG(@"touch began");
-        CGPoint correctedLocation = [self absoluteToRelativeLocation:location];
         self.start = correctedLocation;
         self.end = correctedLocation;
         self.pressed = YES;
@@ -158,6 +158,11 @@
 -(CGPoint)absoluteToRelativeLocation:(CGPoint) location
 {
     return ccp(location.x - self.position.x, location.y - self.position.y);
+}
+
+-(BOOL)isValidStartPoint:(CGPoint) location
+{
+    return !CGRectContainsPoint(self.border, location);
 }
 
 @end

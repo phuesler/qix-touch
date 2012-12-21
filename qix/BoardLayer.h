@@ -16,6 +16,7 @@ typedef struct {CGPoint start; CGPoint end;} QixLine;
 
 @property (atomic) CGPoint start;
 @property (atomic) CGPoint end;
+@property (atomic) CGRect border;
 @property (atomic) QixNavigationDirection currentDirection;
 @property (atomic) BOOL pressed;
 @property (atomic, strong) NSMutableArray * lines;
