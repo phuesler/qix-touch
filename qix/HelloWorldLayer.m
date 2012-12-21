@@ -60,59 +60,6 @@
 	return self;
 }
 
-//-(void)navigationButtonPressed:(NavigationDirection) direction
-//{
-//    self.startPoint = CGPointMake(self.currentPosX, self.currentPosY);
-//    self.endPoint = CGPointMake(self.currentPosX, self.currentPosY);
-//}
-//
-//-(void)navigationButtonReleased:(NavigationDirection) direction
-//{
-//    //finish drawing here
-//    self.endPoint = CGPointMake(self.currentPosX, self.currentPosY);
-//    QixLine line = {.start = self.startPoint, .end = self.endPoint};
-//    NSValue *value = [NSValue value:&line withObjCType:@encode(QixLine)];
-//    [self.lines addObject: value];
-//}
-
-// You have to over-ride this method
-//-(void)draw
-//{
-//    if(self.upButton.pressed || self.downButton.pressed || self.leftButton.pressed || self.rightButton.pressed)
-//    {
-//        if(self.upButton.pressed)
-//        {
-//            self.currentPosY++;
-//        }
-//        if(self.downButton.pressed)
-//        {
-//            self.currentPosY--;
-//        }
-//        if(self.leftButton.pressed)
-//        {
-//            self.currentPosX--;
-//        }
-//        if(self.rightButton.pressed)
-//        {
-//            self.currentPosX++;
-//        }
-//        ccDrawColor4B(255, 255, 255, 255);
-//        ccDrawLine(self.startPoint, CGPointMake(self.currentPosX, self.currentPosY));
-//    }
-//    
-//    for(int i = 0; i < [self.lines count];i++)
-//    {
-//        QixLine line;
-//        NSValue *currentValue = [self.lines objectAtIndex:i];
-//        [currentValue getValue:&line];
-//        ccDrawColor4B(255, 255, 255, 255);
-//        ccDrawLine(line.start, line.end);
-//    }
-//    ccDrawColor4B(230, 42, 42, 255);
-//    ccDrawRect(CGPointMake(BOARD_X, BOARD_Y), CGPointMake(BOARD_X + BOARD_WIDTH, BOARD_Y + BOARD_HEIGHT));
-//    
-//}
-
 // on "dealloc" you need to release all your retained objects
 - (void) dealloc
 {
