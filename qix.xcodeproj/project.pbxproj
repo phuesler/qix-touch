@@ -465,11 +465,11 @@
 				03FF39EE1680DDC8000428AD /* HelloWorldLayer.m */,
 				03FF39F01680DDC8000428AD /* IntroLayer.h */,
 				03FF39F11680DDC8000428AD /* IntroLayer.m */,
+				03DE65D816835284008A95AD /* BoardLayer.h */,
+				03DE65D916835284008A95AD /* BoardLayer.m */,
 				03FF38731680DDC6000428AD /* Resources */,
 				03FF388D1680DDC6000428AD /* libs */,
 				03FF39E61680DDC8000428AD /* Supporting Files */,
-				03DE65D816835284008A95AD /* BoardLayer.h */,
-				03DE65D916835284008A95AD /* BoardLayer.m */,
 			);
 			path = qix;
 			sourceTree = "<group>";
