@@ -151,6 +151,12 @@
     if(CGRectContainsPoint([self boundingBox], location))
     {
         CCLOG(@"touch ended");
+
+        //add last line
+        QixLine line = {.start = self.start, .end = self.end};
+        NSValue *value = [NSValue value:&line withObjCType:@encode(QixLine)];
+        [self.linesBeingDrawn addObject: value];
+
         for(int i = 0; i < [self.linesBeingDrawn count];i++)
         {
             [self.lines addObject: [self.linesBeingDrawn objectAtIndex:i]];
