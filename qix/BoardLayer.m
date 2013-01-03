@@ -56,24 +56,13 @@
 -(void)draw
 {
     [super draw];
+    [self drawTestGrid];
     if (self.pressed) {
         ccDrawLine(self.start, self.end);
     }
     [self drawLines:self.lines];
     [self drawLines:self.linesBeingDrawn];
     ccDrawRect(ccp(BOARD_PADDING,BOARD_PADDING), ccp(self.contentSize.width - BOARD_PADDING, self.contentSize.height - BOARD_PADDING));
-    // Test GRID drawing performance
-//    for(int i = 0; i < 20;i++)
-//    {
-//        for(int j =0; j < 20;j++)
-//        {
-//            int boxSize = 20;
-//            int x = j * boxSize + BOARD_PADDING;
-//            int y = i * boxSize + BOARD_PADDING;
-//            CGPoint points[] = {ccp(x,y), ccp(x + boxSize, y), ccp(x + boxSize, y + boxSize), ccp(x, y + boxSize)};
-//            ccDrawPoly(points, 4, NO);
-//        }
-//    }
 }
 
 
@@ -228,6 +217,20 @@
         ccDrawLine(line.start, line.end);
     }
     
+}
+
+-(void)drawTestGrid
+{
+    for(int i = 0; i < 20;i++)
+    {
+        for(int j =0; j < 20;j++)
+        {
+            int boxSize = 20;
+            int x = j * boxSize + BOARD_PADDING;
+            int y = i * boxSize + BOARD_PADDING;
+            ccDrawSolidRect(ccp(x,y), ccp(x + boxSize, y + boxSize), ccc4f(0, 0, 0, 255));
+        }
+    }
 }
 
 
