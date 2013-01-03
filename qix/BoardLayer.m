@@ -93,6 +93,30 @@
     location = [[CCDirector sharedDirector] convertToGL:location];
     if(CGRectContainsPoint([self boundingBox], location))
     {
+        if([self isHittingNewLines])
+        {
+            [self resetGame];
+            return ;
+        }
+        
+        if([self isHittingExistingLines])
+        {
+            //add last line
+            QixLine line = {.start = self.start, .end = self.end};
+            NSValue *value = [NSValue value:&line withObjCType:@encode(QixLine)];
+            [self.linesBeingDrawn addObject: value];
+            
+            for(int i = 0; i < [self.linesBeingDrawn count];i++)
+            {
+                [self.lines addObject: [self.linesBeingDrawn objectAtIndex:i]];
+            }
+            [self.linesBeingDrawn removeAllObjects];
+            self.pressed = NO;
+            // flood fill
+            // draw rectangles
+            // clear current lines
+        }
+        
         float threshold = THRESHOLD;
         float dY = abs(self.uncorrectedEnd.y - self.start.y);
         float dX = abs(self.uncorrectedEnd.x - self.start.x);
@@ -151,17 +175,6 @@
     if(CGRectContainsPoint([self boundingBox], location))
     {
         CCLOG(@"touch ended");
-
-        //add last line
-        QixLine line = {.start = self.start, .end = self.end};
-        NSValue *value = [NSValue value:&line withObjCType:@encode(QixLine)];
-        [self.linesBeingDrawn addObject: value];
-
-        for(int i = 0; i < [self.linesBeingDrawn count];i++)
-        {
-            [self.lines addObject: [self.linesBeingDrawn objectAtIndex:i]];
-        }
-        [self.linesBeingDrawn removeAllObjects];
         self.pressed = false;
     }
 }
@@ -237,6 +250,26 @@
             ccDrawSolidRect(ccp(x,y), ccp(x + boxSize, y + boxSize), ccc4f(0, 0, 0, 255));
         }
     }
+}
+
+-(BOOL) isHittingExistingLines
+{
+    for(int i = 0; i < [self.lines count]; i++)
+    {
+        
+    }
+    return NO;
+}
+
+-(BOOL) isHittingNewLines
+{
+    return NO;
+}
+
+-(void) resetGame
+{
+    [self.lines removeAllObjects];
+    [self.linesBeingDrawn removeAllObjects];
 }
 
 
