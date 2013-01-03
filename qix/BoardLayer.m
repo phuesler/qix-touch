@@ -108,7 +108,7 @@
             
             for(int i = 0; i < [self.linesBeingDrawn count];i++)
             {
-                [self.lines addObject: [self.linesBeingDrawn objectAtIndex:i]];
+                [self addLine: [self.linesBeingDrawn objectAtIndex:i]];
             }
             [self.linesBeingDrawn removeAllObjects];
             self.pressed = NO;
@@ -254,11 +254,14 @@
 
 -(BOOL) isHittingExistingLines
 {
-    for(int i = 0; i < [self.lines count]; i++)
+    if(self.end.x == self.border.origin.x || self.end.x == self.border.origin.x + self.border.size.width || self.end.y == self.border.origin.y || self.end.y == self.border.origin.y + self.border.size.height)
     {
-        
+        return YES;
     }
-    return NO;
+    else
+    {
+        return NO;
+    }
 }
 
 -(BOOL) isHittingNewLines
@@ -270,6 +273,46 @@
 {
     [self.lines removeAllObjects];
     [self.linesBeingDrawn removeAllObjects];
+}
+
+-(void) addLine:(NSValue *) lineValue
+{
+    QixLine line;
+    [lineValue getValue:&line];
+    if(line.start.x == line.end.x && line.start.y < line.end.y)
+    {
+        //up
+        for(int i=line.start.y;i <= line.end.y;i++)
+        {
+            [[self.pixels objectAtIndex:line.start.x] replaceObjectAtIndex:i withObject:@(2)];
+        }
+    }
+    else if (line.start.x == line.end.x && line.start.y > line.start.y)
+    {
+        //down
+        for(int i=line.start.y;i >= line.end.y;i--)
+        {
+            [[self.pixels objectAtIndex:line.start.x] replaceObjectAtIndex:i withObject:@(2)];
+        }
+    }
+    else if(line.start.y == line.end.y && line.start.x < line.end.x)
+    {
+        //right
+        for(int i=line.start.x;i <= line.end.x;i++)
+        {
+            [[self.pixels objectAtIndex:i] replaceObjectAtIndex:line.start.y withObject:@(2)];
+        }
+        
+    }
+    else if(line.start.y == line.end.y && line.start.x > line.end.x)
+    {
+        //left
+        for(int i=line.start.x;i >= line.end.x;i--)
+        {
+            [[self.pixels objectAtIndex:i] replaceObjectAtIndex:line.start.y withObject:@(2)];
+        }
+    }
+    [self.lines addObject: lineValue];
 }
 
 
