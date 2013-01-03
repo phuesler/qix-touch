@@ -19,6 +19,16 @@
         self.lines = [[NSMutableArray alloc] initWithCapacity:20];
         self.currentDirection = kUp;
         self.border = CGRectMake(BOARD_PADDING, BOARD_PADDING, self.contentSize.width - BOARD_PADDING, self.contentSize.height - BOARD_PADDING);
+        self.pixels = [[NSMutableArray alloc] initWithCapacity:1000];
+        for(int i = 0; i < 1000;i++)
+        {
+            NSMutableArray *columns = [[NSMutableArray alloc] initWithCapacity:750];
+            for(int j =0; j < 750;j++)
+            {
+                [columns addObject:@(0)];
+            }
+            [self.pixels addObject: columns];
+        }
     }
     return self;
 }
@@ -54,6 +64,19 @@
         ccDrawLine(line.start, line.end);
     }
     ccDrawRect(ccp(BOARD_PADDING,BOARD_PADDING), ccp(self.contentSize.width - BOARD_PADDING, self.contentSize.height - BOARD_PADDING));
+// Test GRID drawing performance    
+//    for(int i = 0; i < 10;i++)
+//    {
+//        for(int j =0; j < 10;j++)
+//        {
+//            int boxSize = 60;
+//            int x = j * boxSize + BOARD_PADDING;
+//            int y = i * boxSize + BOARD_PADDING;
+//            ccDrawSolidRect(ccp(x,y), ccp(x + boxSize, y + boxSize), ccc4f(255, 255, 255, 255));
+//            ccDrawColor4B(0, 0, 0, 255);
+//            ccDrawRect(ccp(x,y), ccp(x + boxSize, y + boxSize));
+//        }
+//    }
 }
 
 

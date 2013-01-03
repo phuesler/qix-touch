@@ -20,5 +20,8 @@ typedef struct {CGPoint start; CGPoint end;} QixLine;
 @property (atomic) QixNavigationDirection currentDirection;
 @property (atomic) BOOL pressed;
 @property (atomic, strong) NSMutableArray * lines;
+@property (atomic, strong) NSMutableArray * pixels;
+
+
 
 @end
