@@ -17,9 +17,13 @@
     if(self = [super initWithColor:ccc4(230, 42, 42, 255)])
     {
         self.lines = [[NSMutableArray alloc] initWithCapacity:20];
+        self.linesBeingDrawn = [[NSMutableArray alloc] initWithCapacity:20];
         self.currentDirection = kUp;
         self.border = CGRectMake(BOARD_PADDING, BOARD_PADDING, self.contentSize.width - BOARD_PADDING, self.contentSize.height - BOARD_PADDING);
         self.pixels = [[NSMutableArray alloc] initWithCapacity:1000];
+        
+        
+        //build grid array, not sure if I am even going to need this
         for(int i = 0; i < 1000;i++)
         {
             NSMutableArray *columns = [[NSMutableArray alloc] initWithCapacity:750];
@@ -55,16 +59,10 @@
     if (self.pressed) {
         ccDrawLine(self.start, self.end);
     }
-    for(int i = 0; i < [self.lines count];i++)
-    {
-        QixLine line;
-        NSValue *currentValue = [self.lines objectAtIndex:i];
-        [currentValue getValue:&line];
-        ccDrawColor4B(255, 255, 255, 255);
-        ccDrawLine(line.start, line.end);
-    }
+    [self drawLines:self.lines];
+    [self drawLines:self.linesBeingDrawn];
     ccDrawRect(ccp(BOARD_PADDING,BOARD_PADDING), ccp(self.contentSize.width - BOARD_PADDING, self.contentSize.height - BOARD_PADDING));
-// Test GRID drawing performance    
+// Test GRID drawing performance
 //    for(int i = 0; i < 10;i++)
 //    {
 //        for(int j =0; j < 10;j++)
@@ -137,7 +135,7 @@
             self.end = correctionPoint;
             QixLine line = {.start = self.start, .end = self.end};
             NSValue *value = [NSValue value:&line withObjCType:@encode(QixLine)];
-            [self.lines addObject: value];
+            [self.linesBeingDrawn addObject: value];
             self.start = correctionPoint;
             
             newDirection = self.currentDirection;
@@ -159,6 +157,11 @@
     if(CGRectContainsPoint([self boundingBox], location))
     {
         CCLOG(@"touch ended");
+        for(int i = 0; i < [self.linesBeingDrawn count];i++)
+        {
+            [self.lines addObject: [self.linesBeingDrawn objectAtIndex:i]];
+        }
+        [self.linesBeingDrawn removeAllObjects];
         self.pressed = false;
     }
 }
@@ -187,5 +190,19 @@
 {
     return !CGRectContainsPoint(self.border, location);
 }
+
+-(void)drawLines:(NSArray *) lines
+{
+    for(int i = 0; i < [lines count];i++)
+    {
+        QixLine line;
+        NSValue *currentValue = [lines objectAtIndex:i];
+        [currentValue getValue:&line];
+        ccDrawColor4B(255, 255, 255, 255);
+        ccDrawLine(line.start, line.end);
+    }
+    
+}
+
 
 @end
