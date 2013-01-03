@@ -24,10 +24,10 @@
         
         
         //build grid array, not sure if I am even going to need this
-        for(int i = 0; i < 1000;i++)
+        for(int i = 0; i < self.border.size.width;i++)
         {
             NSMutableArray *columns = [[NSMutableArray alloc] initWithCapacity:750];
-            for(int j =0; j < 750;j++)
+            for(int j =0; j < self.border.size.height;j++)
             {
                 [columns addObject:@(0)];
             }
