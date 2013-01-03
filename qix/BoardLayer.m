@@ -7,8 +7,8 @@
 //
 
 #import "BoardLayer.h"
-#define THRESHOLD 10.0;
-#define BOARD_PADDING 20.0
+#define THRESHOLD 20.0;
+#define BOARD_PADDING 50.0
 
 @implementation BoardLayer
 
@@ -88,6 +88,7 @@
         CCLOG(@"touch began");
         self.start = correctedLocation;
         self.end = correctedLocation;
+        self.uncorrectedEnd = correctedLocation;
         self.pressed = YES;
         return YES;
     }
@@ -105,27 +106,31 @@
     if(CGRectContainsPoint([self boundingBox], location))
     {
         float threshold = THRESHOLD;
-        float dY = abs(self.end.y - self.start.y);
-        float dX = abs(self.end.x - self.start.x);
+        float dY = abs(self.uncorrectedEnd.y - self.start.y);
+        float dX = abs(self.uncorrectedEnd.x - self.start.x);
         QixNavigationDirection newDirection;
         if(dX <= threshold && self.start.y < self.end.y)
         {
             newDirection = kUp;
+            self.end = [self correctedLocation:location forDirection:newDirection];
             CCLOG(@"going up");
         }
         else if(dX <= threshold && self.start.y > self.end.y)
         {
             newDirection = kDown;
+            self.end = [self correctedLocation:location forDirection:newDirection];
             CCLOG(@"going down");
         }
         else if(dY <= threshold && self.start.x < self.end.x)
         {
             newDirection = kRight;
+            self.end = [self correctedLocation:location forDirection:newDirection];
             CCLOG(@"moving right");
         }
         else if(dY <= threshold && self.start.x > self.end.x)
         {
             newDirection = kLeft;
+            self.end = [self correctedLocation:location forDirection:newDirection];
             CCLOG(@"moving left");
         }
         else
@@ -139,10 +144,11 @@
             self.start = correctionPoint;
             
             newDirection = self.currentDirection;
+            self.end = [self absoluteToRelativeLocation:location];
         }
         
         self.currentDirection = newDirection;
-        self.end = [self absoluteToRelativeLocation:location];
+        self.uncorrectedEnd = [self absoluteToRelativeLocation:location];
     }
     else
     {
@@ -184,6 +190,27 @@
 -(CGPoint)absoluteToRelativeLocation:(CGPoint) location
 {
     return ccp(location.x - self.position.x, location.y - self.position.y);
+}
+
+-(CGPoint)correctedLocation:(CGPoint)location forDirection:(QixNavigationDirection)direction
+{
+    CGPoint relativePosition = [self absoluteToRelativeLocation:location];
+    float correctedX = relativePosition.x;
+    float correctedY = relativePosition.y;
+    switch (direction) {
+        case kUp:
+        case kDown:
+            correctedX = self.start.x;
+            break;
+        case kLeft:
+        case kRight:
+            correctedY = self.start.y;
+            break;
+        default:
+            break;
+    }
+    return ccp(correctedX, correctedY);
+    
 }
 
 -(BOOL)isValidStartPoint:(CGPoint) location
