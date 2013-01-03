@@ -56,13 +56,13 @@
 -(void)draw
 {
     [super draw];
-    [self drawTestGrid];
+//    [self drawTestGrid];
+    ccDrawRect(ccp(BOARD_PADDING,BOARD_PADDING), ccp(self.contentSize.width - BOARD_PADDING, self.contentSize.height - BOARD_PADDING));
     if (self.pressed) {
         ccDrawLine(self.start, self.end);
     }
     [self drawLines:self.lines];
     [self drawLines:self.linesBeingDrawn];
-    ccDrawRect(ccp(BOARD_PADDING,BOARD_PADDING), ccp(self.contentSize.width - BOARD_PADDING, self.contentSize.height - BOARD_PADDING));
 }
 
 
