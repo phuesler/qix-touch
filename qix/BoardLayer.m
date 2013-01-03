@@ -62,17 +62,16 @@
     [self drawLines:self.lines];
     [self drawLines:self.linesBeingDrawn];
     ccDrawRect(ccp(BOARD_PADDING,BOARD_PADDING), ccp(self.contentSize.width - BOARD_PADDING, self.contentSize.height - BOARD_PADDING));
-// Test GRID drawing performance
-//    for(int i = 0; i < 10;i++)
+    // Test GRID drawing performance
+//    for(int i = 0; i < 20;i++)
 //    {
-//        for(int j =0; j < 10;j++)
+//        for(int j =0; j < 20;j++)
 //        {
-//            int boxSize = 60;
+//            int boxSize = 20;
 //            int x = j * boxSize + BOARD_PADDING;
 //            int y = i * boxSize + BOARD_PADDING;
-//            ccDrawSolidRect(ccp(x,y), ccp(x + boxSize, y + boxSize), ccc4f(255, 255, 255, 255));
-//            ccDrawColor4B(0, 0, 0, 255);
-//            ccDrawRect(ccp(x,y), ccp(x + boxSize, y + boxSize));
+//            CGPoint points[] = {ccp(x,y), ccp(x + boxSize, y), ccp(x + boxSize, y + boxSize), ccp(x, y + boxSize)};
+//            ccDrawPoly(points, 4, NO);
 //        }
 //    }
 }
