@@ -174,8 +174,11 @@
 	location = [[CCDirector sharedDirector] convertToGL:location];
     if(CGRectContainsPoint([self boundingBox], location))
     {
-        CCLOG(@"touch ended");
-        self.pressed = false;
+        if([self isHittingExistingLines])
+        {
+            CCLOG(@"touch ended");
+            self.pressed = false;
+        }
     }
 }
 
@@ -254,10 +257,13 @@
 
 -(BOOL) isHittingExistingLines
 {
+    CCLOG(@"%i",[[[self.pixels objectAtIndex:self.end.x] objectAtIndex:self.end.y] integerValue] );
     if(self.end.x == self.border.origin.x || self.end.x == self.border.origin.x + self.border.size.width || self.end.y == self.border.origin.y || self.end.y == self.border.origin.y + self.border.size.height)
     {
         return YES;
     }
+    else if([[[self.pixels objectAtIndex:self.end.x] objectAtIndex:self.end.y] integerValue] == 2)
+        return YES;
     else
     {
         return NO;
