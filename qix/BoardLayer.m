@@ -7,8 +7,18 @@
 //
 
 #import "BoardLayer.h"
-#define THRESHOLD 20.0;
-#define BOARD_PADDING 50.0
+#import "QixLine.h"
+#define THRESHOLD 20.0
+#define BOARD_PADDING 50
+#define TILE_SIZE 10
+#define TILE_EMPTY 0
+#define TILE_LINE 1
+#define TILE_FILL 2
+#define TILE_OUTSIDE 3
+#define BOARD_WIDTH 800
+#define BOARD_HEIGHT 600
+#define WIDTH 900
+#define HEIGHT 700
 
 @implementation BoardLayer
 
@@ -19,20 +29,48 @@
         self.lines = [[NSMutableArray alloc] initWithCapacity:20];
         self.linesBeingDrawn = [[NSMutableArray alloc] initWithCapacity:20];
         self.currentDirection = kUp;
-        self.border = CGRectMake(BOARD_PADDING, BOARD_PADDING, self.contentSize.width - BOARD_PADDING, self.contentSize.height - BOARD_PADDING);
-        self.pixels = [[NSMutableArray alloc] initWithCapacity:1000];
+        self.contentSize = CGSizeMake(WIDTH, HEIGHT);
+        self.border = CGRectMake(BOARD_PADDING, BOARD_PADDING, BOARD_WIDTH - BOARD_PADDING, BOARD_HEIGHT - BOARD_PADDING);
+        
+        self.pixels = [[NSMutableArray alloc] initWithCapacity:BOARD_WIDTH];
         
         
-        //build grid array, not sure if I am even going to need this
-        for(int i = 0; i < self.border.size.width;i++)
+        //build pixel array, not sure if I am even going to need this
+        for(int i = 0; i <= BOARD_PADDING + BOARD_WIDTH;i++)
         {
-            NSMutableArray *columns = [[NSMutableArray alloc] initWithCapacity:750];
-            for(int j =0; j < self.border.size.height;j++)
+            NSMutableArray *columns = [[NSMutableArray alloc] initWithCapacity:BOARD_HEIGHT];
+            for(int j = 0; j <= BOARD_PADDING + BOARD_HEIGHT;j++)
             {
-                [columns addObject:@(0)];
+                [columns addObject: @(TILE_EMPTY)];
             }
-            [self.pixels addObject: columns];
+            [self.pixels addObject:columns];
         }
+        
+        
+        self.tilesGrid = [NSMutableArray array];
+        for (int i = 0; i <= (BOARD_WIDTH)/TILE_SIZE ;  i++){
+            
+            NSMutableArray *subGrid = [NSMutableArray array];
+            
+            for (int j = 0; j <= (BOARD_HEIGHT)/TILE_SIZE; j++){
+                
+                [subGrid addObject:@(TILE_EMPTY)];
+                
+            }
+            [self.tilesGrid addObject:subGrid];
+        }
+        
+        
+        CGPoint lowerLeft = ccp(BOARD_PADDING, BOARD_PADDING);
+        CGPoint lowerRight = ccp(lowerLeft.x + BOARD_WIDTH, lowerLeft.y);
+        CGPoint upperRight = ccp(lowerRight.x, lowerRight.y + BOARD_HEIGHT);
+        CGPoint upperLeft = ccp(lowerLeft.x, upperRight.y);
+        
+        [self addLine: [[QixLine alloc] initWithStart:lowerLeft end: lowerRight]];
+        [self addLine: [[QixLine alloc] initWithStart:lowerRight end: upperRight]];
+        [self addLine: [[QixLine alloc] initWithStart:upperRight end: upperLeft]];
+        [self addLine: [[QixLine alloc] initWithStart:upperLeft end: lowerLeft]];
+
     }
     return self;
 }
@@ -57,7 +95,6 @@
 {
     [super draw];
 //    [self drawTestGrid];
-    ccDrawRect(ccp(BOARD_PADDING,BOARD_PADDING), ccp(self.contentSize.width - BOARD_PADDING, self.contentSize.height - BOARD_PADDING));
     if (self.pressed) {
         ccDrawLine(self.start, self.end);
     }
@@ -102,9 +139,8 @@
         if([self isHittingExistingLines])
         {
             //add last line
-            QixLine line = {.start = self.start, .end = self.end};
-            NSValue *value = [NSValue value:&line withObjCType:@encode(QixLine)];
-            [self.linesBeingDrawn addObject: value];
+            QixLine *line = [[QixLine alloc] initWithStart:self.start end:self.end];
+            [self.linesBeingDrawn addObject: line];
             
             for(int i = 0; i < [self.linesBeingDrawn count];i++)
             {
@@ -150,9 +186,8 @@
             NSLog(@"out of threshold bounds");
             CGPoint correctionPoint = [self newEndPoint];
             self.end = correctionPoint;
-            QixLine line = {.start = self.start, .end = self.end};
-            NSValue *value = [NSValue value:&line withObjCType:@encode(QixLine)];
-            [self.linesBeingDrawn addObject: value];
+            QixLine *line = [[QixLine alloc] initWithStart:self.start end:self.end];
+            [self.linesBeingDrawn addObject: line];
             self.start = correctionPoint;
             
             newDirection = self.currentDirection;
@@ -232,9 +267,7 @@
 {
     for(int i = 0; i < [lines count];i++)
     {
-        QixLine line;
-        NSValue *currentValue = [lines objectAtIndex:i];
-        [currentValue getValue:&line];
+        QixLine *line = [lines objectAtIndex:i];
         ccDrawColor4B(255, 255, 255, 255);
         ccDrawLine(line.start, line.end);
     }
@@ -258,11 +291,7 @@
 -(BOOL) isHittingExistingLines
 {
     CCLOG(@"%i",[[[self.pixels objectAtIndex:self.end.x] objectAtIndex:self.end.y] integerValue] );
-    if(self.end.x == self.border.origin.x || self.end.x == self.border.origin.x + self.border.size.width || self.end.y == self.border.origin.y || self.end.y == self.border.origin.y + self.border.size.height)
-    {
-        return YES;
-    }
-    else if([[[self.pixels objectAtIndex:self.end.x] objectAtIndex:self.end.y] integerValue] == 2)
+    if([[[self.pixels objectAtIndex:self.end.x] objectAtIndex:self.end.y] integerValue] == 2)
         return YES;
     else
     {
@@ -281,44 +310,17 @@
     [self.linesBeingDrawn removeAllObjects];
 }
 
--(void) addLine:(NSValue *) lineValue
+-(void) addLine:(QixLine *) line
 {
-    QixLine line;
-    [lineValue getValue:&line];
-    if(line.start.x == line.end.x && line.start.y < line.end.y)
+    NSArray * points = [line pointsInLine];
+    for(int i = 0;i < [points count];i++)
     {
-        //up
-        for(int i=line.start.y;i <= line.end.y;i++)
-        {
-            [[self.pixels objectAtIndex:line.start.x] replaceObjectAtIndex:i withObject:@(2)];
-        }
+        CGPoint point;
+        NSValue *pointValue = [points objectAtIndex:i];
+        [pointValue getValue:&point];
+        [[self.pixels objectAtIndex:point.x] replaceObjectAtIndex:point.y withObject:@(2)];
     }
-    else if (line.start.x == line.end.x && line.start.y > line.start.y)
-    {
-        //down
-        for(int i=line.start.y;i >= line.end.y;i--)
-        {
-            [[self.pixels objectAtIndex:line.start.x] replaceObjectAtIndex:i withObject:@(2)];
-        }
-    }
-    else if(line.start.y == line.end.y && line.start.x < line.end.x)
-    {
-        //right
-        for(int i=line.start.x;i <= line.end.x;i++)
-        {
-            [[self.pixels objectAtIndex:i] replaceObjectAtIndex:line.start.y withObject:@(2)];
-        }
-        
-    }
-    else if(line.start.y == line.end.y && line.start.x > line.end.x)
-    {
-        //left
-        for(int i=line.start.x;i >= line.end.x;i--)
-        {
-            [[self.pixels objectAtIndex:i] replaceObjectAtIndex:line.start.y withObject:@(2)];
-        }
-    }
-    [self.lines addObject: lineValue];
+    [self.lines addObject: line];
 }
 
 

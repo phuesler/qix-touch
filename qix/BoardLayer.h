@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
+#import "QixLine.h"
 
 typedef enum { kLeft, kRight, kUp, kDown} QixNavigationDirection;
-typedef struct {CGPoint start; CGPoint end;} QixLine;
 
 @interface BoardLayer : CCLayerColor
 
@@ -23,6 +23,7 @@ typedef struct {CGPoint start; CGPoint end;} QixLine;
 @property (atomic, strong) NSMutableArray * lines;
 @property (atomic, strong) NSMutableArray * linesBeingDrawn;
 @property (atomic, strong) NSMutableArray * pixels;
+@property (atomic, strong) NSMutableArray * tilesGrid;
 
 
 

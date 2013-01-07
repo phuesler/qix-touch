@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03606CA7169B4158009C9FBB /* QixLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 03606CA6169B4158009C9FBB /* QixLine.m */; };
 		03DE65DA16835284008A95AD /* BoardLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DE65D916835284008A95AD /* BoardLayer.m */; };
 		03FF38611680DDC6000428AD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03FF38601680DDC6000428AD /* QuartzCore.framework */; };
 		03FF38631680DDC6000428AD /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03FF38621680DDC6000428AD /* OpenGLES.framework */; };
@@ -137,6 +138,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		03606CA5169B4158009C9FBB /* QixLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QixLine.h; sourceTree = "<group>"; };
+		03606CA6169B4158009C9FBB /* QixLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QixLine.m; sourceTree = "<group>"; };
 		03DE65D816835284008A95AD /* BoardLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardLayer.h; sourceTree = "<group>"; };
 		03DE65D916835284008A95AD /* BoardLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardLayer.m; sourceTree = "<group>"; };
 		03FF385C1680DDC6000428AD /* qix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = qix.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -470,6 +473,8 @@
 				03FF38731680DDC6000428AD /* Resources */,
 				03FF388D1680DDC6000428AD /* libs */,
 				03FF39E61680DDC8000428AD /* Supporting Files */,
+				03606CA5169B4158009C9FBB /* QixLine.h */,
+				03606CA6169B4158009C9FBB /* QixLine.m */,
 			);
 			path = qix;
 			sourceTree = "<group>";
@@ -1015,6 +1020,7 @@
 				03FF39EF1680DDC8000428AD /* HelloWorldLayer.m in Sources */,
 				03FF39F21680DDC8000428AD /* IntroLayer.m in Sources */,
 				03DE65DA16835284008A95AD /* BoardLayer.m in Sources */,
+				03606CA7169B4158009C9FBB /* QixLine.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -51,7 +51,6 @@
         BoardLayer * boardLayer = [[BoardLayer alloc] init];
         boardLayer.anchorPoint = ccp(0,0);
         boardLayer.position = ccp(10,10);
-        boardLayer.contentSize = CGSizeMake(1000, 750);
         boardLayer.isTouchEnabled = YES;
         
         [self addChild: boardLayer];
