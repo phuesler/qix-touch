@@ -41,7 +41,15 @@
             NSMutableArray *columns = [[NSMutableArray alloc] initWithCapacity:BOARD_HEIGHT];
             for(int j = 0; j <= BOARD_PADDING + BOARD_HEIGHT;j++)
             {
-                [columns addObject: @(TILE_EMPTY)];
+                if(i < BOARD_PADDING || i > BOARD_PADDING + BOARD_WIDTH)
+                {
+                    [columns addObject: @(TILE_OUTSIDE)];
+                }
+                else
+                {
+                    [columns addObject: @(TILE_EMPTY)];
+                }
+            
             }
             [self.pixels addObject:columns];
         }
@@ -291,7 +299,7 @@
 -(BOOL) isHittingExistingLines
 {
     CCLOG(@"%i",[[[self.pixels objectAtIndex:self.end.x] objectAtIndex:self.end.y] integerValue] );
-    if([[[self.pixels objectAtIndex:self.end.x] objectAtIndex:self.end.y] integerValue] == 2)
+    if([[[self.pixels objectAtIndex:self.end.x] objectAtIndex:self.end.y] integerValue] > 0)
         return YES;
     else
     {
