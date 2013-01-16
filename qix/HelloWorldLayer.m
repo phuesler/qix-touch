@@ -47,13 +47,13 @@
 	// always call "super" init
 	// Apple recommends to re-assign "self" with the "super's" return value
 	if( (self=[super init]) ) {
-		
         BoardLayer * boardLayer = [[BoardLayer alloc] init];
         boardLayer.anchorPoint = ccp(0,0);
         boardLayer.position = ccp(10,10);
         boardLayer.isTouchEnabled = YES;
         
         [self addChild: boardLayer];
+        
 
 	}
 	return self;

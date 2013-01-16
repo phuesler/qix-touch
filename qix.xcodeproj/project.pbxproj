@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		030D501A16A31C7A00503150 /* CCMutableTexture2D.m in Sources */ = {isa = PBXBuildFile; fileRef = 030D501916A31C7A00503150 /* CCMutableTexture2D.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		030D501E16A31C9200503150 /* AsyncObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 030D501D16A31C9200503150 /* AsyncObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		03606CA7169B4158009C9FBB /* QixLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 03606CA6169B4158009C9FBB /* QixLine.m */; };
 		03DE65DA16835284008A95AD /* BoardLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DE65D916835284008A95AD /* BoardLayer.m */; };
 		03FF38611680DDC6000428AD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03FF38601680DDC6000428AD /* QuartzCore.framework */; };
@@ -138,6 +140,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		030D501816A31C7A00503150 /* CCMutableTexture2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCMutableTexture2D.h; sourceTree = "<group>"; };
+		030D501916A31C7A00503150 /* CCMutableTexture2D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCMutableTexture2D.m; sourceTree = "<group>"; };
+		030D501C16A31C9200503150 /* AsyncObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncObject.h; sourceTree = "<group>"; };
+		030D501D16A31C9200503150 /* AsyncObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncObject.m; sourceTree = "<group>"; };
 		03606CA5169B4158009C9FBB /* QixLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QixLine.h; sourceTree = "<group>"; };
 		03606CA6169B4158009C9FBB /* QixLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QixLine.m; sourceTree = "<group>"; };
 		03DE65D816835284008A95AD /* BoardLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardLayer.h; sourceTree = "<group>"; };
@@ -462,6 +468,10 @@
 		03FF38721680DDC6000428AD /* qix */ = {
 			isa = PBXGroup;
 			children = (
+				030D501C16A31C9200503150 /* AsyncObject.h */,
+				030D501D16A31C9200503150 /* AsyncObject.m */,
+				030D501816A31C7A00503150 /* CCMutableTexture2D.h */,
+				030D501916A31C7A00503150 /* CCMutableTexture2D.m */,
 				03FF39EA1680DDC8000428AD /* AppDelegate.h */,
 				03FF39EB1680DDC8000428AD /* AppDelegate.m */,
 				03FF39ED1680DDC8000428AD /* HelloWorldLayer.h */,
@@ -1021,6 +1031,8 @@
 				03FF39F21680DDC8000428AD /* IntroLayer.m in Sources */,
 				03DE65DA16835284008A95AD /* BoardLayer.m in Sources */,
 				03606CA7169B4158009C9FBB /* QixLine.m in Sources */,
+				030D501A16A31C7A00503150 /* CCMutableTexture2D.m in Sources */,
+				030D501E16A31C9200503150 /* AsyncObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1031,7 +1043,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Patrick Huesler (CNX96NH4UW)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1044,7 +1056,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C6A3B2AC-C1DA-4E34-9CAF-E814E9304D65";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

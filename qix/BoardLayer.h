@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
+#import "CCMutableTexture2D.h"
 #import "QixLine.h"
 
 typedef enum { kLeft, kRight, kUp, kDown} QixNavigationDirection;
@@ -24,6 +25,7 @@ typedef enum { kLeft, kRight, kUp, kDown} QixNavigationDirection;
 @property (atomic, strong) NSMutableArray * linesBeingDrawn;
 @property (atomic, strong) NSMutableArray * pixels;
 @property (atomic, strong) NSMutableArray * tilesGrid;
+@property (atomic, strong) CCMutableTexture2D * drawingBoard;
 
 
 

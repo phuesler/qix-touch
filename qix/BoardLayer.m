@@ -7,6 +7,7 @@
 //
 
 #import "BoardLayer.h"
+#import "CCMutableTexture2D.h"
 #import "QixLine.h"
 #define THRESHOLD 20.0
 #define BOARD_PADDING 50
@@ -33,6 +34,22 @@
         self.border = CGRectMake(BOARD_PADDING, BOARD_PADDING, BOARD_WIDTH - BOARD_PADDING, BOARD_HEIGHT - BOARD_PADDING);
         
         self.pixels = [[NSMutableArray alloc] initWithCapacity:BOARD_WIDTH];
+        
+        _drawingBoard = [[CCMutableTexture2D alloc] initWithSize:CGSizeMake(WIDTH, HEIGHT) pixelFormat: kCCTexture2DPixelFormat_Default];
+        [_drawingBoard setAliasTexParameters];
+        CCSprite *groundSprite = [CCSprite spriteWithTexture:_drawingBoard];
+        groundSprite.position=ccp(0, 0);
+        groundSprite.anchorPoint = ccp(0,0);
+        [self addChild:groundSprite];
+        for(int i = 0;i <= WIDTH;i++)
+        {
+            for(int j = 0; j <= HEIGHT;j++)
+            {
+                [_drawingBoard setPixelAt:ccp(i, j) rgba:ccc4(255, 255, 255, 255)];
+            }
+        }
+        [_drawingBoard apply];
+
         
         
         //build pixel array, not sure if I am even going to need this
